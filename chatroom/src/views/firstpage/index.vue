@@ -7,30 +7,32 @@
         <span>{{item.title}}</span>
       </li>
     </ul>
+    <Footer />
   </div>
 </template>
 <script>
+import Footer from '@/components/footer'
 export default {
   props: {
 
   },
   components: {
-
+    Footer
   },
   data () {
     return {
       list: [
         {
-          title: '消息中心'
+          title: '通讯录'
         },
         {
-          title: '我的手机'
+          title: '聊天室'
         },
         {
-          title: 'web开发讨论组'
+          title: '模块3'
         },
         {
-          title: '好友A'
+          title: '模块4'
         }
       ]
     }
@@ -43,10 +45,13 @@ export default {
       switch(ind){
         case 0:
           this.$router.push({
-            name:'chatroom'
+            name:'mailList'
           })
           break;
         case 1:
+          this.$router.push({
+            name:'chatroom'
+          })
           break;
         case 2:
           break;

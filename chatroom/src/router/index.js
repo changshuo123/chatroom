@@ -10,6 +10,13 @@ export default new Router({
       name: 'first',
       component: ()=>import("../views/firstpage/")
     },
+    // 通讯录
+    {
+        path: '/mailList',
+        name: 'mailList',
+        component: ()=>import("../views/mailList/")
+    },
+    //聊天室
     {
         path: '/chatroom',
         name: 'chatroom',

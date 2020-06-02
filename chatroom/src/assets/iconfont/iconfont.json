@@ -6,6 +6,48 @@
   "description": "",
   "glyphs": [
     {
+      "icon_id": "145431",
+      "name": "群组",
+      "font_class": "qunzu2",
+      "unicode": "e629",
+      "unicode_decimal": 58921
+    },
+    {
+      "icon_id": "1212020",
+      "name": "表情",
+      "font_class": "biaoqing",
+      "unicode": "e620",
+      "unicode_decimal": 58912
+    },
+    {
+      "icon_id": "1409630",
+      "name": "4打开文件",
+      "font_class": "dakaiwenjian",
+      "unicode": "e607",
+      "unicode_decimal": 58887
+    },
+    {
+      "icon_id": "1990040",
+      "name": "时钟",
+      "font_class": "clock",
+      "unicode": "e6be",
+      "unicode_decimal": 59070
+    },
+    {
+      "icon_id": "6246299",
+      "name": "时钟",
+      "font_class": "shizhong",
+      "unicode": "e64c",
+      "unicode_decimal": 58956
+    },
+    {
+      "icon_id": "14421193",
+      "name": "打开文件夹",
+      "font_class": "dakaiwenjianjia",
+      "unicode": "e657",
+      "unicode_decimal": 58967
+    },
+    {
       "icon_id": "383631",
       "name": "音乐",
       "font_class": "yinle",

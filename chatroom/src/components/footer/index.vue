@@ -53,20 +53,18 @@ export default {
 <style scoped lang="scss">
 .footer {
   width: 100%;
-  height: 50px;
+  height: 200px;
   background: #fff;
+  box-shadow:0 0 10px 5px #aaa;
   position: fixed;
   bottom: 0;
   left: 0;
   z-index: 100;
   display: flex;
   > span {
-    flex: 1;
-    height: 50px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    font-size: 16px;
+    width:25%;
+    font-size: 64px;
+    @extend %flexCenter;
   }
 }
 </style>

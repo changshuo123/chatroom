@@ -3,7 +3,7 @@
     <div @click="backOff">
       <i class="iconfont icon-xiangzuo"></i>
     </div>
-    <span>header</span>
+    <span>{{title}}</span>
     <div>
       <span></span>
     </div>
@@ -13,7 +13,10 @@
 <script>
 export default {
   props: {
-
+    title:{
+      type:String,
+      default:''
+    }
   },
   components: {
 
@@ -47,6 +50,10 @@ export default {
   box-shadow: 0 3px 3px -3px #000;
   display:flex;
   justify-content: space-between;
+  // position: absolute;
+  // top:0;
+  // left:0;
+  // z-index: 100;
   >div:nth-child(1){
     width:200px;
     @extend %flexCenter;
