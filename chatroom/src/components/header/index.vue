@@ -1,46 +1,34 @@
 <template>
   <header class="header">
-    <div @click="backOff">
+    <div @click="backOff" class="head-icon">
       <i class="iconfont icon-xiangzuo"></i>
     </div>
-    <span>{{title}}</span>
-    <div>
+    <span class="header-title">{{title}}</span>
+    <div class="head-icon">
       <span></span>
     </div>
-    
   </header>
 </template>
 <script>
 export default {
   props: {
     title:{
-      type:String,
-      default:''
+      type:String 
     }
   },
-  components: {
-
+  components: {},
+  data() {
+    return {};
   },
-  data () {
-    return {
-
-    }
-  },
-  computed: {
-
-  },
+  computed: {},
   methods: {
-    backOff(){
-      this.$router.back()
+    backOff() {
+      window.history.back()
     }
   },
-  created () {
-
-  },
-  mounted () {
-
-  }
-}
+  created() {},
+  mounted() {}
+};
 </script>
 <style scoped lang="scss">
 .header {
@@ -48,24 +36,35 @@ export default {
   height: 200px;
   background: #fff;
   box-shadow: 0 3px 3px -3px #000;
-  display:flex;
+  display: flex;
   justify-content: space-between;
-  // position: absolute;
-  // top:0;
-  // left:0;
-  // z-index: 100;
-  >div:nth-child(1){
-    width:200px;
+  > .head-icon {
+    width: 200px;
     @extend %flexCenter;
-    i.iconfont{
+    i.iconfont {
       font-size: 130px;
     }
   }
-  >div:nth-child(3){
-    width:200px;
-  }
-  >span:nth-child(2){
+  > .header-title {
     line-height: 200px;
   }
 }
+// .tab-header {
+//   width: 700px;
+//   height: 130px;
+//   margin-top: 30px;
+//   border: 6px solid #0091e4;
+//   border-radius: 65px;
+//   display: flex;
+
+//   > span {
+//     width: 50%;
+//     @extend %flexCenter;
+//     font-size: 60px;
+//   }
+
+//   > span.active {
+//     background: #0091e4;
+//   }
+// }
 </style>

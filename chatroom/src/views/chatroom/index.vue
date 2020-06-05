@@ -65,26 +65,69 @@
       </div>
     </div>
     <div class="footer">
-      <textarea class="ipt-talk"></textarea>
+      <textarea class="ipt-talk" v-model="msgToSent"></textarea>
       <span><i class="iconfont">&#xe60b;</i></span>
       <span><i class="iconfont">&#xe620;</i></span>
       <span><i class="iconfont">&#xe607;</i></span>
-      <span class="send">发 送</span>
+      <span class="send" @click="sendFn">发 送</span>
     </div>
   </div>
 </template>
 <script>
 import Header from "@/components/header/";
+import utils from '@/utils/'
 export default {
   data() {
     return {
-      title: "聊天室"
+      title: "聊天室",
+      msgToSent:'',
+      scene:'',//房间号
+      to:'',//房间类型
     };
   },
   components: {
     Header
   },
-  methods: {}
+  methods: {
+    sendFn(){
+      if (/^\s*$/.test(this.msgToSent)) {
+        alert('请不要发送空消息')
+        return
+      } else if (this.msgToSent.length > 800) {
+        alert('请不要超过800个字')
+        return
+      }
+      this.msgToSent = this.msgToSent.trim()
+      let atUsers = this.msgToSent.match(/@[^\s@$]+/g)  //判断前面是否有@
+      console.log(atUsers)
+      // 以@开头
+      // if (atUsers) {
+      //   for (let i = 0; i < atUsers.length; i++) {
+      //     let item = atUsers[i].replace('@', '')
+      //     console.log(this.robotInfosByNick)
+      //     if (this.robotInfosByNick[item]) {
+      //       robotAccid = this.robotInfosByNick[item].account
+      //       robotText = (this.msgToSent + '').replace(atUsers[i], '').trim()
+      //       break
+      //     }
+      //   }
+      // }
+      this.sessionId = this.$route.params.sessionId;
+      this.scene = utils.parseSession(this.sessionId).scene; // 获取房间号动态路由截取字段
+      this.to = utils.parseSession(this.sessionId).to; //获取动态路由type 
+      this.$store.dispatch('sendMsg', {
+        type: 'text',
+        scene: this.scene,
+        to: this.to,
+        text: this.msgToSent
+      })
+    }
+  },
+    // updated:{
+    //   robotInfosByNick () {
+    //     return this.$store.state.robotInfosByNick
+    //   },
+    // }
 };
 </script>
 <style scoped lang="scss">

@@ -8,33 +8,50 @@ export default new Router({
     {
       path: '/first',
       name: 'first',
-      component: ()=>import("../views/firstpage/")
+      component: () => import("../views/firstpage/")
+    },
+    //登录
+    {
+      path: '/login',
+      name: 'login',
+      component: () => import("../views/login/")
     },
     // 通讯录
     {
-        path: '/mailList',
-        name: 'mailList',
-        component: ()=>import("../views/mailList/")
+      path: '/mailList',
+      name: 'mailList',
+      component: () => import("../views/mailList/")
     },
     //聊天室
     {
-        path: '/chatroom',
-        name: 'chatroom',
-        component: ()=>import("../views/chatroom/")
+      path: '/chatroom',
+      name: 'chatroom',
+      component: () => import("../views/chatroom/")
+    },
+    //添加好友
+    {
+      path: '/addFriend',
+      name: 'addFriend',
+      component: () => import("../views/addFriend/")
     },
     {
-        path: '/livevideo',
-        name: 'livevideo',
-        component: ()=>import("../views/livevideo/")
+      path: '/nameCard/:userId',
+      name: 'nameCard',
+      component: () => import("../views/nameCard/")
     },
     {
-        path: '/my',
-        name: 'my',
-        component: ()=>import("../views/my/")
+      path: '/livevideo',
+      name: 'livevideo',
+      component: () => import("../views/livevideo/")
     },
     {
-        path:"/",
-        redirect:"/first"
+      path: '/my',
+      name: 'my',
+      component: () => import("../views/my/")
+    },
+    {
+      path: "/",
+      redirect: "/login"
     }
   ]
 })

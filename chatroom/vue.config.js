@@ -2,10 +2,16 @@ module.exports = {
   configureWebpack: {
     devServer: {
       proxy: {
-        "^/api": {
-          target: "http://bb.shoujiduoduo.com/baby/bb.php",
+        "^/": {
+          target: "http://192.168.1.4",
           pathRewrite: {
-            "^/api": "",
+            "^/": "",
+          },
+        },
+        "^/log": {
+          target: "https://api.netease.im/nimserver/user/create.action",
+          pathRewrite: {
+            "^/log": "",
           },
         },
       },

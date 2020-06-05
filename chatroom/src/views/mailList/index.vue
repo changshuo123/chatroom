@@ -3,7 +3,7 @@
     <Header :title="title" />
     <div class="list-main">
       <div class="nav-top">
-        <div>添加好友/群</div>
+        <div @click="addfriendFn">添加好友/群</div>
         <div>创建群/组</div>
       </div>
     </div>
@@ -22,7 +22,13 @@ export default {
     };
   },
   computed: {},
-  methods: {},
+  methods: {
+    addfriendFn(){
+      this.$router.push({
+        name:'addFriend'
+      })
+    }
+  },
   created() {},
   mounted() {},
 };
@@ -31,7 +37,6 @@ export default {
 .list-main{
   width:100%;
   height:100%;
-  padding-top: 200px;
 }
 .nav-top {
   width: 100%;
