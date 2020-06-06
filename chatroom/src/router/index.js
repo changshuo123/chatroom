@@ -24,7 +24,7 @@ export default new Router({
     },
     //聊天室
     {
-      path: '/chatroom',
+      path: '/chatroom/:userId',
       name: 'chatroom',
       component: () => import("../views/chatroom/")
     },

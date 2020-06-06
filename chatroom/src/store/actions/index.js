@@ -1,6 +1,10 @@
+import store from '../'
 import config from '../../config'
 import cookie from '@/utils/cookie'
 import { formatUserInfo } from './userinfo.js'
+import { onSendMsgDone ,sendMsgReceipt} from './msg'
+import { setCurrSession } from './session'
+import { checkTeamMsgReceipt } from './team'
 const SDK = require('@/sdk/' + config.sdk)
 // console.log(SDK)
 export default {
@@ -23,7 +27,7 @@ export default {
     }
   },
   // 初始化nim
-  initNimSDK({ state, commit }, loginInfo) {
+  initNimSDK({ state, commit, dispatch }, loginInfo) {
     if (state.nim) {
       state.nim.disconnect()
     }
@@ -46,11 +50,20 @@ export default {
       },
       ondisconnect: function onDisconnect(error) {
         console.log(2, error)
+      },
+      // // 同步完成 更新当前state中 currSession
+      onsyncdone: function onSyncDone() {
+        // dispatch('hideLoading')
+        // 说明在聊天列表页
+        if (store.state.currSessionId) {
+          dispatch('setCurrSession', store.state.currSessionId)
+        }
       }
     })
     console.log(nim)
   },
-  //聊天室发送消息
+
+  //聊天室点击发送消息
   sendMsg({ state, commit }, obj) {
     const nim = state.nim
     obj = obj || {}
@@ -125,5 +138,8 @@ export default {
       type: 'team',
       list: []
     })
-  }
+  },
+  setCurrSession,
+  checkTeamMsgReceipt,
+  sendMsgReceipt,
 }

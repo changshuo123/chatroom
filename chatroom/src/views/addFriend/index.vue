@@ -101,10 +101,16 @@ export default {
       }
     },
     clickListFn(account) {
+      // this.$router.push({
+      //   name: "nameCard",
+      //   params: {
+      //     account
+      //   }
+      // });
       this.$router.push({
         name: "nameCard",
-        params: {
-          account
+        params:{
+          userId:account,
         }
       });
     }

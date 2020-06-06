@@ -66,40 +66,51 @@
     </div>
     <div class="footer">
       <textarea class="ipt-talk" v-model="msgToSent"></textarea>
-      <span><i class="iconfont">&#xe60b;</i></span>
-      <span><i class="iconfont">&#xe620;</i></span>
-      <span><i class="iconfont">&#xe607;</i></span>
+      <span>
+        <i class="iconfont">&#xe60b;</i>
+      </span>
+      <span>
+        <i class="iconfont">&#xe620;</i>
+      </span>
+      <span>
+        <i class="iconfont">&#xe607;</i>
+      </span>
       <span class="send" @click="sendFn">发 送</span>
     </div>
   </div>
 </template>
 <script>
 import Header from "@/components/header/";
-import utils from '@/utils/'
+import utils from "@/utils/";
 export default {
   data() {
     return {
-      title: "聊天室",
-      msgToSent:'',
-      scene:'',//房间号
-      to:'',//房间类型
+      title: this.$route.params.userId,
+      msgToSent: "",
+      scene: "", //房间号
+      to: "", //房间类型
+      sessionId:this.$route.params.userId
     };
   },
   components: {
     Header
   },
+  mounted(){
+    this.$store.dispatch('setCurrSession', this.sessionId)
+    console.log(666,this.$store.state.currSessionMsgs)
+  },
   methods: {
-    sendFn(){
+    sendFn() {
       if (/^\s*$/.test(this.msgToSent)) {
-        alert('请不要发送空消息')
-        return
+        alert("请不要发送空消息");
+        return;
       } else if (this.msgToSent.length > 800) {
-        alert('请不要超过800个字')
-        return
+        alert("请不要超过800个字");
+        return;
       }
-      this.msgToSent = this.msgToSent.trim()
-      let atUsers = this.msgToSent.match(/@[^\s@$]+/g)  //判断前面是否有@
-      console.log(atUsers)
+      this.msgToSent = this.msgToSent.trim();
+      let atUsers = this.msgToSent.match(/@[^\s@$]+/g); //判断前面是否有@
+      // console.log(atUsers);
       // 以@开头
       // if (atUsers) {
       //   for (let i = 0; i < atUsers.length; i++) {
@@ -112,47 +123,47 @@ export default {
       //     }
       //   }
       // }
-      this.sessionId = this.$route.params.sessionId;
+      this.sessionId = this.$route.params.userId;
       this.scene = utils.parseSession(this.sessionId).scene; // 获取房间号动态路由截取字段
-      this.to = utils.parseSession(this.sessionId).to; //获取动态路由type 
-      this.$store.dispatch('sendMsg', {
-        type: 'text',
-        scene: this.scene,
+      this.to = utils.parseSession(this.sessionId).to; //获取动态路由type
+      this.$store.dispatch("sendMsg", {
+        type: "text",
+        scene: "p2p",
         to: this.to,
         text: this.msgToSent
-      })
+      });
     }
-  },
-    // updated:{
-    //   robotInfosByNick () {
-    //     return this.$store.state.robotInfosByNick
-    //   },
-    // }
+  }
+  // updated:{
+  //   robotInfosByNick () {
+  //     return this.$store.state.robotInfosByNick
+  //   },
+  // }
 };
 </script>
 <style scoped lang="scss">
-.contain{
-  display:flex;
-  flex-direction:column;
+.contain {
+  display: flex;
+  flex-direction: column;
 }
-.chat-main { 
+.chat-main {
   width: 100%;
   height: 100%;
   overflow: auto;
-  flex:1;
-  .chat-msg{
-    width:100%;
-    height:100%;
+  flex: 1;
+  .chat-msg {
+    width: 100%;
+    height: 100%;
 
     > ul:nth-child(1) {
-    li {
-      padding: 50px 0;
-      box-sizing: border-box;
-      font-size: 60px;
-      color: #ccc;
-      text-align: center;
+      li {
+        padding: 50px 0;
+        box-sizing: border-box;
+        font-size: 60px;
+        color: #ccc;
+        text-align: center;
+      }
     }
-  }
   }
 }
 .session-chat-l {
@@ -223,35 +234,35 @@ export default {
     }
   }
 }
-.footer{
-  width:100%;
-  height:300px;
-  box-shadow:0 0 10px 5px #aaa;
-  span{
-    display:inline-block;
-    width:160px;
-    transform: translate(0,-80px);
+.footer {
+  width: 100%;
+  height: 300px;
+  box-shadow: 0 0 10px 5px #aaa;
+  span {
+    display: inline-block;
+    width: 160px;
+    transform: translate(0, -80px);
   }
-  i{
-    margin:0 10px;
+  i {
+    margin: 0 10px;
     font-size: 120px;
-    color:#666;
+    color: #666;
   }
-  .send{
-    display:inline-block;
-    padding:20px;
-    color:#fff;
-    font-size:70px;
+  .send {
+    display: inline-block;
+    padding: 20px;
+    color: #fff;
+    font-size: 70px;
     background: #0091e4;
     border-radius: 20px;
-    transform: translate(50px,-100px)
+    transform: translate(50px, -100px);
   }
 }
-.ipt-talk{
-  width:900px;
-  height:250px;
+.ipt-talk {
+  width: 900px;
+  height: 250px;
   margin: 10px 0 0 20px;
-  border:1px solid #ccc;
+  border: 1px solid #ccc;
   border-radius: 20px;
   font-size: 70px;
   margin-right: 50px;
