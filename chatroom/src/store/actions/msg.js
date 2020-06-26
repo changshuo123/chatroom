@@ -1,9 +1,8 @@
 import store from '../'
 import util from '../../utils/index'
-// 发送消息返回消息处理
+// 发送消息返回消息处理回调
 export function onSendMsgDone(error, msg) {
     // store.dispatch('hideLoading')
-    console.log(msg)
     if (error) {
         // 被拉黑
         if (error.code === 7101) {
@@ -15,11 +14,11 @@ export function onSendMsgDone(error, msg) {
     }
     onMsg(msg)
 }
-// 点击发送时成功后更新state
+// 点击发送时成功后更新state 对方接受回调函数
 export function onMsg(msg) {
+    console.log('msg',msg)
     msg = formatMsg(msg)
     store.commit('putMsg', msg); // 更新追加msg
-    console.log(msg.sessionId, store.state.currSessionId)
     if (msg.sessionId === store.state.currSessionId) {
 
         store.commit('updateCurrSessionMsgs', {  // 修改state CurrSessionMsgs
@@ -34,7 +33,7 @@ export function onMsg(msg) {
         store.dispatch('onTeamNotificationMsg', msg)
     }
 }
-// 判断是否是机器人 返回机器人msg
+//判断是否是机器人 返回机器人msg
 export function formatMsg(msg) {
     const nim = store.state.nim
     if (msg.type === 'robot') {
@@ -71,7 +70,6 @@ export function sendMsgReceipt({ state, commit }) {
                 nim.sendMsgReceipt({
                     msg: state.sessionMap[currSessionId].lastMsg,
                     done: function sendMsgReceiptDone(error, obj) {
-                        console.log('对方以读回执',error,obj)
                         // do something
                     }
                 })

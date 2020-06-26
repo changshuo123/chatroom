@@ -76,7 +76,6 @@ export default {
             // 有idClient 且 5分钟以内的消息
             if (msg.idClient && (tempTime - msg.time < 1000 * 300)) {
                 state.msgsMap[msg.idClient] = msg
-                console.log(state.msgsMap)
             }
         })
     },
@@ -220,5 +219,16 @@ export default {
     // 向state teamMsgReads:群消息回执查询结果列表
     updateTeamMsgReads(state, obj) {
         state.teamMsgReads.push(...obj.teamMsgReceipts)
+    },
+    
+    updateSessions(state, sessions) {
+        const nim = state.nim
+        state.sessionlist = nim.mergeSessions(state.sessionlist, sessions)  // 合并会话    
+        state.sessionlist.sort((a, b) => {
+            return b.updateTime - a.updateTime
+        })
+        state.sessionlist.forEach(item => {
+            state.sessionMap[item.id] = item
+        })
     },
 }

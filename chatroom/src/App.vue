@@ -39,7 +39,9 @@ export default {
     }
   },
   updated(){
-    // console.log(this.$store)
+    if(this.$route.name === 'login'){
+      return
+    }
     this.$store.dispatch('connect')
   }
 }

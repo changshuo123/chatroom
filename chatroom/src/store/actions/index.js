@@ -2,8 +2,8 @@ import store from '../'
 import config from '../../config'
 import cookie from '@/utils/cookie'
 import { formatUserInfo } from './userinfo.js'
-import { onSendMsgDone ,sendMsgReceipt} from './msg'
-import { setCurrSession } from './session'
+import { onSendMsgDone, sendMsgReceipt, onMsg } from './msg'
+import { setCurrSession, onSessions, onUpdateSession } from './session'
 import { checkTeamMsgReceipt } from './team'
 const SDK = require('@/sdk/' + config.sdk)
 // console.log(SDK)
@@ -51,8 +51,15 @@ export default {
       ondisconnect: function onDisconnect(error) {
         console.log(2, error)
       },
+      done: function sendMsgDone(error, msg) {
+        console.log(error, msg)
+      },
+      // 会话
+      onsessions: onSessions,
+      onupdatesession: onUpdateSession,
+      onmsg: onMsg,
       // // 同步完成 更新当前state中 currSession
-      onsyncdone: function onSyncDone() {
+      onsyncdone: function onSyncDone(e) {
         // dispatch('hideLoading')
         // 说明在聊天列表页
         if (store.state.currSessionId) {
@@ -79,14 +86,14 @@ export default {
           needMsgReceipt: obj.needMsgReceipt || false
         })
         break
-      case 'custom':
-        nim.sendCustomMsg({
-          scene: obj.scene,
-          to: obj.to,
-          pushContent: obj.pushContent,
-          content: JSON.stringify(obj.content),
-          done: onSendMsgDone
-        })
+      // case 'custom':
+      //   nim.sendCustomMsg({
+      //     scene: obj.scene,
+      //     to: obj.to,
+      //     pushContent: obj.pushContent,
+      //     content: JSON.stringify(obj.content),
+      //     done: onSendMsgDone
+      //   })
     }
   },
   //添加好友点击搜索

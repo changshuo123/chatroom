@@ -22,14 +22,14 @@ export default {
   },
   methods: {
     beginChat() {
-      console.log(this.$route.params.userId);
       let roomType = 'p2p-';
       this.$router.push({
         name: "chatroom",
         params: {
-          userId: roomType+this.$route.params.userId,
+          sessionId: roomType+this.$route.params.sessionId,
         }
       });
+      console.log(123)
     }
   }
 };

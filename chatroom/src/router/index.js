@@ -24,7 +24,7 @@ export default new Router({
     },
     //聊天室
     {
-      path: '/chatroom/:userId',
+      path: '/chatroom/:sessionId',
       name: 'chatroom',
       component: () => import("../views/chatroom/")
     },
@@ -35,7 +35,7 @@ export default new Router({
       component: () => import("../views/addFriend/")
     },
     {
-      path: '/nameCard/:userId',
+      path: '/nameCard/:sessionId',
       name: 'nameCard',
       component: () => import("../views/nameCard/")
     },

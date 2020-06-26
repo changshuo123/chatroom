@@ -89,6 +89,7 @@ export default {
           teamId: this.searchText
         });
       } else if (this.searchType === 0) {
+        console.log(this.$store.state.userUID)
         if (this.searchText === this.$store.state.userUID) {
           this.searchList = [];
           this.errMsg = "别看了，就是你自己！";
@@ -101,16 +102,10 @@ export default {
       }
     },
     clickListFn(account) {
-      // this.$router.push({
-      //   name: "nameCard",
-      //   params: {
-      //     account
-      //   }
-      // });
       this.$router.push({
         name: "nameCard",
         params:{
-          userId:account,
+          sessionId:account,
         }
       });
     }
@@ -142,6 +137,7 @@ export default {
           return item;
         });
       } else if (this.searchType === 0) {
+        console.log(this.$store.state.searchedUsers)
         result = this.$store.state.searchedUsers.map(item => {
           //处理搜索列表结果
           item.nick = item.nick || item.account;
