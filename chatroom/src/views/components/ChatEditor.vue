@@ -74,7 +74,8 @@ export default {
       // console.log(this.$store.state.sessionlist);
       // console.log(this.$store.state.sessionMap);
     },
-    changeFile(e) {
+    changeFile(e) { 
+      
       console.log(this.$refs.fileipt.value);
     }
   }
