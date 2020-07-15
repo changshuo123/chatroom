@@ -1,15 +1,18 @@
 import store from '../'
 import cookie from '../../utils/cookie'
 import util from '../../utils'
-import config from '../../configs'
+import config from '../../config'
 import Vue from 'vue'
+const sessionStorage = window.sessionStorage
 export default {
     // 链接sdk成功后设置userUID sdktoken
     updateUserUID(state, loginInfo) {
         state.userUID = loginInfo.uid
         state.sdktoken = loginInfo.sdktoken
-        cookie.setCookie('uid', loginInfo.uid)
-        cookie.setCookie('sdktoken', loginInfo.sdktoken)
+        // cookie.setCookie('uid', loginInfo.uid)
+        // cookie.setCookie('sdktoken', loginInfo.sdktoken)
+        sessionStorage.setItem('uid',loginInfo.uid)
+        sessionStorage.setItem('sdktoken',loginInfo.sdktoken)
     },
     // 更新search结果列表
     updateSearchlist(state, obj) {
@@ -39,7 +42,6 @@ export default {
             let account = user.account
             if (account) {
                 userInfos[account] = util.mergeObject(userInfos[account], user)
-                console.log(userInfos)
             }
         })
         state.userInfos = util.mergeObject(state.userInfos, userInfos)

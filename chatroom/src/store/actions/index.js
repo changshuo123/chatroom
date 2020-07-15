@@ -1,21 +1,24 @@
 import store from '../'
 import config from '../../config'
-import cookie from '@/utils/cookie'
+// import cookie from '@/utils/cookie'
 import { formatUserInfo } from './userinfo.js'
 import { onSendMsgDone, sendMsgReceipt, onMsg } from './msg'
 import { setCurrSession, onSessions, onUpdateSession } from './session'
 import { checkTeamMsgReceipt } from './team'
 const SDK = require('@/sdk/' + config.sdk)
+const sessionStorage = window.sessionStorage
 // console.log(SDK)
 export default {
   connect({ state, commit, dispatch }, obj) {
     if (!state.nim) {
       let loginInfo = {
-        uid: cookie.readCookie('uid'),
-        sdktoken: cookie.readCookie('sdktoken'),
+        // uid: cookie.readCookie('uid'),
+        // sdktoken: cookie.readCookie('sdktoken'),
+        uid: sessionStorage.getItem('uid'),
+        sdktoken: sessionStorage.getItem('sdktoken')
       }
       if (!loginInfo.uid) {
-        // 无cookie，直接跳转登录页
+        // 无uid，直接跳转登录页
         // pageUtil.turnPage('无历史登录记录，请重新登录', 'login')
         this.$router.push({
           name: 'login'
@@ -31,9 +34,8 @@ export default {
     if (state.nim) {
       state.nim.disconnect()
     }
-    let uid = cookie.readCookie('uid')
-    let sdktoken = cookie.readCookie('sdktoken')
-    console.log(uid, sdktoken)
+    let uid = sessionStorage.getItem('uid')
+    let sdktoken = sessionStorage.getItem('sdktoken')
     window.nim = state.nim = SDK.NIM.getInstance({
       // debug: false, //
       appKey: config.appkey,
@@ -41,15 +43,16 @@ export default {
       token: sdktoken,
       secure: true, //模式下会通过 https 协议跟服务器建立连接, 非 secure 模式下会通过 http 协议跟服务器建立连接, 默认 true
       db: false, //若不要开启数据库请设置false。SDK默认为true。
-      onconnect: function onConnect(event) {
+      onconnect: function(event) {
         console.log(1, event)
         if (loginInfo) {
           // 连接上以后更新uid
           commit('updateUserUID', loginInfo)
         }
       },
+      // 断开 IM
       ondisconnect: function onDisconnect(error) {
-        console.log(2, error)
+        console.log('断开IM ondisconnect', error)
       },
       done: function sendMsgDone(error, msg) {
         console.log(error, msg)
@@ -57,7 +60,7 @@ export default {
       // 会话
       onsessions: onSessions,
       onupdatesession: onUpdateSession,
-      onmsg: onMsg,
+      onmsg: onMsg, // 收到消息回调
       // // 同步完成 更新当前state中 currSession
       onsyncdone: function onSyncDone(e) {
         // dispatch('hideLoading')

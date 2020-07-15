@@ -3,7 +3,7 @@
  */
 
 import store from '../'
-import config from '../../configs'
+import config from '../../config'
 import util from '../../utils'
 
 export function formatUserInfo (obj) {

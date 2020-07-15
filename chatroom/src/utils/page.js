@@ -1,4 +1,4 @@
-import config from '../configs'
+import config from '../config'
 
 const pageMap = {
   'login': config.loginUrl,
@@ -39,13 +39,15 @@ var page = {
   },
   // 滚动聊天列表到底部
   scrollChatListDown: (pos, initCount) => {
-    let dom = document.getElementById('chat-list')
+    console.log(111)
+    let dom = document.getElementById('chat-main')
+    console.log(dom)
     if (!dom) {
       return
     }
     let maxCount = 5
     initCount = initCount || 1
-    if (typeof pos !== 'number') {
+    if (typeof pos !== 'number') { 
       pos = Math.max(dom.scrollHeight - dom.clientHeight, 888888)
     }
     dom.scrollTop = pos

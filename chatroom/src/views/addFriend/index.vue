@@ -42,7 +42,7 @@
 export default {
   data() {
     return {
-      searchType: 0,
+      searchType: 0, // 0 搜用户 1搜群
       headTabList: ["搜索用户", "搜索群"],
       searchText: "",
       searchList: [],

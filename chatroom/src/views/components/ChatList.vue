@@ -1,6 +1,6 @@
 <template>
   <!--  -->
-  <div class="chat-main">
+  <div id="chat-main" class="chat-main">
     <div class="chat-msg">
       <!-- <ul>
         <li>---- 上拉加载更多 ----</li>
@@ -15,6 +15,7 @@
         >
           <p class="time-tag" v-if="item.type === 'timeTag'">{{item.text}}</p>
           <span v-if="item.type === 'text'" class="head-img"></span>
+          <!-- <img :src="item." alt=""> -->
           <span v-if="item.type === 'text'" class="session-message">{{item.text}}</span>
         </li>
       </ul>
@@ -44,21 +45,15 @@ export default {
 .chat-main {
   width: 100%;
   height: 100%;
-  overflow: auto;
+  overflow-y: auto;
   flex: 1;
   .chat-msg {
     width: 100%;
     height: 100%;
 
-    // > ul:nth-child(1) {
-    //   li {
-    //     padding: 50px 0;
-    //     box-sizing: border-box;
-    //     font-size: 60px;
-    //     color: #ccc;
-    //     text-align: center;
-    //   }
-    // }
+    .session-main{
+      padding-bottom: 100px;
+    }
   }
 }
 .session-chat-l {
@@ -74,9 +69,11 @@ export default {
     margin-right: 50px;
   }
   > span.session-message {
+    word-wrap:break-word; 
+    word-break:normal;
     float: left;
     max-width: 920px;
-    margin-top: 20px;
+    margin: 20px 0 100px 0;
     padding: 20px;
     border-radius: 20px;
     background: #5cacde;
@@ -110,7 +107,7 @@ export default {
   > span.session-message {
     float: right;
     max-width: 920px;
-    margin-top: 20px;
+    margin: 20px 0 100px 0;
     padding: 20px;
     border-radius: 20px;
     background: #5cacde;

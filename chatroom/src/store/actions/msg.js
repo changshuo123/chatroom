@@ -16,11 +16,9 @@ export function onSendMsgDone(error, msg) {
 }
 // 点击发送时成功后更新state 对方接受回调函数
 export function onMsg(msg) {
-    console.log('msg',msg)
     msg = formatMsg(msg)
     store.commit('putMsg', msg); // 更新追加msg
     if (msg.sessionId === store.state.currSessionId) {
-
         store.commit('updateCurrSessionMsgs', {  // 修改state CurrSessionMsgs
             type: 'put',
             msg

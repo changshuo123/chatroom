@@ -12,12 +12,12 @@
   </div>
 </template>
 <script>
-import axios from "axios";
-import { loginfn } from "./service/index";
-const crypto = require("crypto");
-const fs = require("fs");
-import md5 from "@/utils/md5";
-import cookie from "@/utils/cookie";
+// import axios from "axios";
+// import { loginfn } from "./service/index";
+// const crypto = require("crypto");
+// const fs = require("fs");
+// import md5 from "@/utils/md5";
+// import cookie from "@/utils/cookie";
 export default {
   props: {},
   components: {},
@@ -42,10 +42,14 @@ export default {
         return;
       }
       // let sdktoken = md5(this.password);//这里不做加密处理否则请求不成功
+      // 真实登录需请求三个接口 login获取动态token用来携带headers头 userInfo获取用户信息渲染我的页面 router获取路由信息做权限验证
       let sdktoken = this.password; 
+      let sessionStorage = window.sessionStorage
       //设置假cookie 
-      cookie.setCookie("uid", this.account.toLowerCase()); 
-      cookie.setCookie("sdktoken", sdktoken);
+      // cookie.setCookie("uid", this.account.toLowerCase()); 
+      // cookie.setCookie("sdktoken", sdktoken);
+      sessionStorage.setItem('uid',this.account.toLowerCase())
+      sessionStorage.setItem('sdktoken',sdktoken)
       this.$router.push({
         name:'first'
       })

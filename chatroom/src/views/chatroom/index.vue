@@ -9,6 +9,7 @@
 <script>
 import Header from "@/components/header/";
 import utils from "@/utils/";
+import pageUtils from '@/utils/page'
 import ChatEditor from "../components/ChatEditor";
 import ChatList from "../components/ChatList";
 export default {
@@ -29,7 +30,7 @@ export default {
   },
   mounted() {
     this.$store.dispatch("setCurrSession", this.sessionId);
-    // console.log(666, this.$store.state.currSessionMsgs);
+    pageUtils.scrollChatListDown()
   },
   // methods: {},
   // updated: {
@@ -43,6 +44,9 @@ export default {
       let msg = this.$store.state.currSessionMsgs;
       return msg
     }
+  },
+  updated(){
+    pageUtils.scrollChatListDown()
   }
 };
 </script>

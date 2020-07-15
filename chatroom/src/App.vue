@@ -42,6 +42,7 @@ export default {
     if(this.$route.name === 'login'){
       return
     }
+    console.log('updated')
     this.$store.dispatch('connect')
   }
 }

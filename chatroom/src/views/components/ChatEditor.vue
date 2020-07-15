@@ -1,12 +1,18 @@
 <template>
   <!-- 聊天室 底部 -->
   <div class="footer">
-    <div>
-      <textarea class="ipt-talk" v-model="msgToSent"></textarea>
+    <div class="footer-l">
+      <textarea v-show="changetype" class="ipt-talk" v-model="msgToSent"></textarea>
+      <!-- <div class="timer">time</div> -->
+      <div
+        v-show="!changetype"
+        :class="['voice',{'active-voice':voiceColor == true}]"
+        @click="voiceDown"
+      >{{voiceText}}</div>
     </div>
     <div class="btn-chat-cont">
       <span>
-        <i class="iconfont">&#xe60b;</i>
+        <i class="iconfont" @click="clickVoice">&#xe60b;</i>
       </span>
       <span>
         <i class="iconfont">&#xe620;</i>
@@ -32,6 +38,9 @@ export default {
   },
   data() {
     return {
+      voiceText:'按下发送',
+      voiceColor: false,
+      changetype: true,
       msgToSent: ""
     };
   },
@@ -74,9 +83,20 @@ export default {
       // console.log(this.$store.state.sessionlist);
       // console.log(this.$store.state.sessionMap);
     },
-    changeFile(e) { 
-      
+    changeFile(e) {
       console.log(this.$refs.fileipt.value);
+    },
+    clickVoice() {
+      this.changetype = !this.changetype;
+    },
+    voiceDown() {
+      console.log(1);
+      if(this.voiceColor){
+        this.voiceText = '点击说话'
+      }else{
+        this.voiceText = '点击发送'
+      }
+      this.voiceColor = !this.voiceColor;
     }
   }
 };
@@ -112,6 +132,10 @@ export default {
     text-align-last: justify;
     text-align: justify;
   }
+  .footer-l {
+    width: 1000px;
+    position: relative;
+  }
   .ipt-talk {
     width: 900px;
     height: 250px;
@@ -120,6 +144,27 @@ export default {
     border-radius: 20px;
     font-size: 70px;
     margin-right: 50px;
+  }
+  .voice {
+    width: 800px;
+    height: 200px;
+    margin: 50px 0 0 70px;
+    border: 1px solid #ccc;
+    border-radius: 200px;
+    @extend %flexCenter;
+    font-size: 60px;
+  }
+  .active-voice {
+    background: #ccc;
+  }
+  .timer{
+    width:400px;
+    height:130px;
+    border-radius: 50px;
+    background: #ccc;
+    position: absolute;
+    top: -100px;
+    left: 100px;
   }
 }
 .icon-file {
