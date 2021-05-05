@@ -4,11 +4,13 @@
     <div class="footer-l">
       <textarea v-show="changetype" class="ipt-talk" v-model="msgToSent"></textarea>
       <!-- <div class="timer">time</div> -->
+      <!-- 按住说话 -->
       <div
         v-show="!changetype"
         :class="['voice',{'active-voice':voiceColor == true}]"
-        @click="voiceDown"
+        @mousedown="voiceDown" @mouseend.self="voiceEnd"
       >{{voiceText}}</div>
+      <span v-show="voiceColor" class="cur-timer">{{timerText}}</span>
     </div>
     <div class="btn-chat-cont">
       <span>
@@ -38,10 +40,12 @@ export default {
   },
   data() {
     return {
-      voiceText:'按下发送',
+      voiceText:'按住 说话',
       voiceColor: false,
       changetype: true,
-      msgToSent: ""
+      msgToSent: "",
+      timerText: 0, // 按下时间
+      timer: null,
     };
   },
   methods: {
@@ -90,13 +94,22 @@ export default {
       this.changetype = !this.changetype;
     },
     voiceDown() {
-      console.log(1);
+      clearInterval(this.timer)
+      this.voiceColor = true;
       if(this.voiceColor){
         this.voiceText = '点击说话'
+        this.timer = setInterval(() => {
+          this.timerText++
+          console.log(this.timerText)
+        }, 1000);
       }else{
         this.voiceText = '点击发送'
       }
-      this.voiceColor = !this.voiceColor;
+      // this.voiceColor = !this.voiceColor;
+    },
+    voiceEnd(){
+      this.voiceColor = false;
+      clearInterval(this.timer)
     }
   }
 };
@@ -178,5 +191,13 @@ export default {
   top: 0;
   left: 0;
   opacity: 0;
+}
+.cur-timer{
+  padding: 10px 20px;
+  border:1px solid #ccc;
+  background: #f0f0f0;
+  position: absolute;
+  left: 350px;
+  top: -130px;
 }
 </style>

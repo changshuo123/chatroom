@@ -1,4 +1,5 @@
 <template>
+<!-- 首页 -->
   <div class="contain">
     <ul class="ul-cont">
       <li v-for="(item,index) in list" @click="clickFn(index)"

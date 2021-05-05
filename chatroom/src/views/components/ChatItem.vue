@@ -1,5 +1,5 @@
 <template>
-  <!--  -->
+  <!-- 单行文件 -->
   <li class="session-chat-l">
     <span class="head-img"></span>
     <span class="session-message">你好</span>

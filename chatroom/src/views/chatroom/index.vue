@@ -12,7 +12,7 @@ import utils from "@/utils/";
 import pageUtils from '@/utils/page'
 import ChatEditor from "../components/ChatEditor";
 import ChatList from "../components/ChatList";
-export default {
+export default { 
   data() {
     return {
       title: this.$route.params.sessionId,
